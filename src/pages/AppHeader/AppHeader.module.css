@@ -1,0 +1,38 @@
+.header {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: #357a38;
+  height: 35px;
+  box-shadow: 2px 2px 2px black;
+}
+
+.leftContainer {
+  background-color: aquamarine;
+  display: flex;
+  align-items: center;
+}
+
+.rightContainer {
+  background-color: blue;
+  display: flex;
+  align-items: center;
+}
+
+.headerItem {
+  color: black;
+  background-color: orange;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 100%;
+  text-align: center;
+}
+
+.headerItem:hover {
+  background-color: #3cde44;
+  color: black;
+}
