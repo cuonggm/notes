@@ -33,6 +33,17 @@ const AppHeader = (props) => {
 
         {auth.isLoggedIn && (
           <Link
+            to="/profile"
+            className={styles.headerItem}
+            style={{ backgroundColor: "cyan" }}
+            onClick={onLogoutHandler}
+          >
+            {auth.email}
+          </Link>
+        )}
+
+        {auth.isLoggedIn && (
+          <Link
             to="#"
             className={styles.headerItem}
             style={{ backgroundColor: "red" }}
