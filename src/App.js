@@ -1,5 +1,6 @@
 import { Layout } from "antd";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import "./antd-theme/antd-customized.css";
 import "./App.css";
 import AppHeader from "./pages/AppHeader/AppHeader";
@@ -9,6 +10,8 @@ import Login from "./pages/Login/Login";
 const { Content } = Layout;
 
 function App() {
+  const auth = useSelector((state) => state.auth);
+
   return (
     <BrowserRouter>
       <AppHeader />
@@ -25,7 +28,8 @@ function App() {
           >
             <Switch>
               <Route path="/login">
-                <Login />
+                {auth.isLoggedIn && <Redirect to="/" />}
+                {!auth.isLoggedIn && <Login />}{" "}
               </Route>
             </Switch>
           </Content>

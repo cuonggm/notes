@@ -1,10 +1,22 @@
 import styles from "./AppHeader.module.css";
 import { Link } from "react-router-dom";
 import { Layout } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutThunk } from "../../store/authSlice";
 
 const { Header } = Layout;
 
 const AppHeader = (props) => {
+  const auth = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  const onLogoutHandler = (event) => {
+    event.preventDefault();
+    console.log("onLogoutHandler");
+    dispatch(logoutThunk());
+  };
+
   return (
     <Header className={styles.header}>
       <div className={styles.leftContainer}>
@@ -13,9 +25,22 @@ const AppHeader = (props) => {
         </Link>
       </div>
       <div className={styles.rightContainer}>
-        <Link to="/login" className={styles.headerItem}>
-          Login
-        </Link>
+        {!auth.isLoggedIn && (
+          <Link to="/login" className={styles.headerItem}>
+            Login
+          </Link>
+        )}
+
+        {auth.isLoggedIn && (
+          <Link
+            to="#"
+            className={styles.headerItem}
+            style={{ backgroundColor: "red" }}
+            onClick={onLogoutHandler}
+          >
+            Logout
+          </Link>
+        )}
       </div>
     </Header>
   );

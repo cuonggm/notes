@@ -1,12 +1,11 @@
 import { Button, Col, Form, Input, Row } from "antd";
 import { Fragment, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginThunk } from "../../store/authSlice";
 import "./Login.module.css";
 
 const Login = (props) => {
   const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -29,12 +28,6 @@ const Login = (props) => {
 
   return (
     <Fragment>
-      <Row>
-        <Col>
-          {auth.isLoggedIn && <h1>Logged in</h1>}
-          {!auth.isLoggedIn && <h1>Logged out</h1>}
-        </Col>
-      </Row>
       <Row justify="center" align="middle" style={{ height: "70%" }}>
         <Col align="center">
           <Form
