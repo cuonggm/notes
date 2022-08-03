@@ -12,8 +12,6 @@ const AppHeader = (props) => {
   const dispatch = useDispatch();
 
   const onLogoutHandler = (event) => {
-    event.preventDefault();
-    console.log("onLogoutHandler");
     dispatch(logoutThunk());
   };
 
@@ -33,10 +31,9 @@ const AppHeader = (props) => {
 
         {auth.isLoggedIn && (
           <Link
-            to="/profile"
+            to="#"
             className={styles.headerItem}
             style={{ backgroundColor: "cyan" }}
-            onClick={onLogoutHandler}
           >
             {auth.email}
           </Link>
