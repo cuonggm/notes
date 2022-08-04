@@ -18,23 +18,19 @@ const AppHeader = (props) => {
   return (
     <Header className={styles.header}>
       <div className={styles.leftContainer}>
-        <Link to="/" className={styles.headerItem}>
+        <Link to="/" className={styles.logo}>
           Home
         </Link>
       </div>
       <div className={styles.rightContainer}>
         {!auth.isLoggedIn && (
-          <Link to="/login" className={styles.headerItem}>
+          <Link to="/login" className={styles.headerAccentItem}>
             Login
           </Link>
         )}
 
         {auth.isLoggedIn && (
-          <Link
-            to="#"
-            className={styles.headerItem}
-            style={{ backgroundColor: "cyan" }}
-          >
+          <Link to="#" className={styles.headerMainItem}>
             {auth.email}
           </Link>
         )}
@@ -42,8 +38,7 @@ const AppHeader = (props) => {
         {auth.isLoggedIn && (
           <Link
             to="#"
-            className={styles.headerItem}
-            style={{ backgroundColor: "red" }}
+            className={styles.headerAccentItem}
             onClick={onLogoutHandler}
           >
             Logout

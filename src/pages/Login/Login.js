@@ -28,14 +28,14 @@ const Login = (props) => {
 
   return (
     <Fragment>
-      <Row justify="center" align="middle" style={{ height: "70%" }}>
+      <Row justify="center" align="middle">
         <Col align="center">
           <Form
             name="loginForm"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             autoComplete="off"
-            style={{ width: "400px" }}
+            // style={{ width: "150px" }}
           >
             <Form.Item
               label="Username"
@@ -62,29 +62,29 @@ const Login = (props) => {
                 offset: 8,
                 span: 16,
               }}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
             >
-              <Button
-                type="primary"
-                htmlType="submit"
-                style={{ width: "100%" }}
-                onClick={onSignIn}
-              >
+              <Button type="primary" htmlType="submit" onClick={onSignIn}>
                 Login
               </Button>
             </Form.Item>
 
             <Form.Item
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+              }}
               wrapperCol={{
                 offset: 8,
                 span: 16,
               }}
             >
-              <Button
-                type="secondary"
-                htmlType="submit"
-                style={{ width: "100%" }}
-                onClick={onSignUp}
-              >
+              <Button type="secondary" htmlType="submit" onClick={onSignUp}>
                 Sign Up
               </Button>
             </Form.Item>

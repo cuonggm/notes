@@ -7,6 +7,7 @@ import "./App.css";
 import AppHeader from "./pages/AppHeader/AppHeader";
 import Login from "./pages/Login/Login";
 import { authActions, logoutThunk } from "./store/authSlice";
+import styles from "./App.module.css";
 
 // Do not import. Just get from Layout
 const { Content } = Layout;
@@ -40,17 +41,9 @@ function App() {
   return (
     <BrowserRouter>
       <AppHeader />
-      <Layout style={{ height: "100vh" }}>
+      <Layout style={{ height: "100vh" }} className={styles.mainLayout}>
         <Layout>
-          <Content
-            style={{
-              paddingLeft: "12px",
-              paddingTop: "8px",
-              paddingRight: "12px",
-              paddingBottom: "8px",
-              backgroundColor: "white",
-            }}
-          >
+          <Content className={styles.mainLayout}>
             <Switch>
               <Route path="/login">
                 {auth.isLoggedIn === true && <Redirect to="/" />}

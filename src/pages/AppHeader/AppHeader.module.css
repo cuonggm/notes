@@ -1,40 +1,85 @@
+/* Outter Header */
+
 .header {
-  margin: 0;
-  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 3px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   display: flex;
   justify-content: space-between;
-  background-color: #357a38;
-  height: 35px;
-  box-shadow: 2px 2px 2px black;
+  background-color: var(--light-color);
+  height: 4rem;
+  box-shadow: 1px 2px 8px var(--shadow-color);
 }
+
+/* Logo */
+
+.logo,
+.logo:hover,
+.logo:focus {
+  font-family: "Righteous", cursive;
+  font-size: 2rem;
+  color: var(--main-color);
+  text-decoration: none;
+}
+
+/* Left Container */
 
 .leftContainer {
-  background-color: aquamarine;
   display: flex;
   align-items: center;
 }
+
+/* Right Container */
 
 .rightContainer {
-  background-color: blue;
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
-.headerItem {
-  color: black;
-  background-color: orange;
+/* Header Main Color Item */
+
+.headerMainItem {
+  color: var(--light-color);
+  background-color: var(--main-color);
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* width: 60px; */
   width: auto;
-  padding: 0 10px;
+  padding: 0 1rem;
   height: 100%;
   text-align: center;
+  border-radius: 2rem;
 }
 
-.headerItem:hover {
-  background-color: #3cde44;
-  color: black;
+.headerMainItem:hover {
+  background-color: var(--light-main-color);
+  color: var(--light-color);
+}
+
+/* Header Accent Color Item */
+
+.headerAccentItem {
+  color: var(--light-color);
+  background-color: var(--accent-color);
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 0 1rem;
+  height: 100%;
+  text-align: center;
+  border-radius: 2rem;
+}
+
+.headerAccentItem:hover {
+  background-color: var(--light-accent-color);
+  color: var(--light-color);
 }
