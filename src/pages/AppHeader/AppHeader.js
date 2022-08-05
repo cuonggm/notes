@@ -1,6 +1,6 @@
 import styles from "./AppHeader.module.css";
 import { Link } from "react-router-dom";
-import { Button, Layout } from "antd";
+import { Layout } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk } from "../../store/authSlice";
 import { Fragment } from "react";
@@ -62,6 +62,7 @@ const AppHeader = (props) => {
           )}
 
           <Link
+            to="#"
             onClick={onClickShowMoreButton}
             className={`${styles.moreButton} ${styles.headerDarkItem} moreButton`}
           >

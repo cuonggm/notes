@@ -28,14 +28,19 @@ const Login = (props) => {
 
   return (
     <Fragment>
-      <Row justify="center" align="middle">
-        <Col align="center">
+      <Row justify="center">
+        <Col>
+          <h1 className={styles.title}>Login</h1>
+        </Col>
+      </Row>
+      <Row justify="center">
+        <Col>
           <Form
+            className={styles.form}
             name="loginForm"
             labelCol={{ span: 8 }}
-            wrapperCol={{ span: 16 }}
+            wrapperCol={{ span: 24 }}
             autoComplete="off"
-            className={styles.form}
           >
             <Form.Item
               label="Username"
@@ -43,44 +48,45 @@ const Login = (props) => {
               rules={[
                 { required: true, message: "Username can not be empty." },
               ]}
-              className={styles.formItem}
             >
               <Input onChange={onUsernameChange} />
             </Form.Item>
-
             <Form.Item
               label="Password"
               name="password"
               rules={[
                 { required: true, message: "Password can not be empty." },
               ]}
-              className={styles.formItem}
             >
               <Input.Password onChange={onPasswordChange} />
             </Form.Item>
-
             <Form.Item
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
+              wrapperCol={{
+                offset: 8,
+                span: 24,
               }}
-              className={styles.formItem}
             >
-              <Button type="primary" htmlType="submit" onClick={onSignIn}>
+              <Button
+                block={true}
+                type="primary"
+                htmlType="submit"
+                onClick={onSignIn}
+              >
                 Login
               </Button>
             </Form.Item>
-
             <Form.Item
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "center",
+              wrapperCol={{
+                offset: 8,
+                span: 24,
               }}
-              className={styles.formItem}
             >
-              <Button type="secondary" htmlType="submit" onClick={onSignUp}>
+              <Button
+                block={true}
+                type="secondary"
+                htmlType="submit"
+                onClick={onSignUp}
+              >
                 Sign Up
               </Button>
             </Form.Item>

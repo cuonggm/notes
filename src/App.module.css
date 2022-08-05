@@ -1,14 +1,22 @@
 .mainLayout {
   background-color: var(--light-color);
+  background: var(--light-color);
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+}
+
+.mainContentLayout {
+  background-color: var(--light-color);
   margin: 0;
   padding-left: 5rem;
   padding-right: 5rem;
-  padding-top: 1rem;
+  padding-top: 4rem;
   padding-bottom: 1rem;
 }
 
-@media (max-width: 768px) {
-  .mainLayout {
+@media (max-width: 575px) {
+  .mainContentLayout {
     padding-left: 0.2rem;
     padding-right: 0.2rem;
   }

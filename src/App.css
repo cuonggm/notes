@@ -26,3 +26,9 @@ aside#moreSideDrawer {
   font-family: var(--header-item-font-family-1);
   font-size: var(--header-item-font-size);
 }
+
+@media (max-width: 575px) {
+  .ant-col-offset-8 {
+    margin-left: 0;
+  }
+}

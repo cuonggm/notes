@@ -1,7 +1,7 @@
-import { Button, Layout } from "antd";
-import { useEffect } from "react";
+import { Layout } from "antd";
+import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Link, Redirect, Route, Switch } from "react-router-dom";
+import { Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import "./antd-theme/antd-customized.css";
 import "./App.css";
 import AppHeader from "./pages/AppHeader/AppHeader";
@@ -17,7 +17,8 @@ const { Content } = Layout;
 function App() {
   const auth = useSelector((state) => state.auth);
 
-  console.log(auth);
+  const location = useLocation();
+  console.log(location);
 
   const dispatch = useDispatch();
   const sidedrawer = useSelector((state) => state.sidedrawer);
@@ -57,11 +58,11 @@ function App() {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
+    <Fragment>
       <AppHeader />
-      <Layout style={{ height: "100vh" }} className={styles.mainLayout}>
+      <Layout className={styles.mainLayout}>
         <Layout>
-          <Content className={styles.mainLayout}>
+          <Content className={styles.mainContentLayout}>
             <Switch>
               <Route path="/login">
                 {auth.isLoggedIn === true && <Redirect to="/" />}
@@ -75,6 +76,7 @@ function App() {
       {sidedrawer.isSidedrawerShow && (
         <aside id="moreSideDrawer">
           <Link
+            to="#"
             onClick={onClickHideMoreButton}
             className={`${appHeaderStyles.moreButton} ${appHeaderStyles.sideDrawerItemDark} moreButton`}
           >
@@ -112,7 +114,7 @@ function App() {
           )}
         </aside>
       )}
-    </BrowserRouter>
+    </Fragment>
   );
 }
 
