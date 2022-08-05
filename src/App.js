@@ -74,12 +74,12 @@ function App() {
 
       {sidedrawer.isSidedrawerShow && (
         <aside id="moreSideDrawer">
-          <Button
+          <Link
             onClick={onClickHideMoreButton}
             className={`${appHeaderStyles.moreButton} ${appHeaderStyles.sideDrawerItemDark} moreButton`}
           >
             Close
-          </Button>
+          </Link>
 
           {!auth.isLoggedIn && (
             <Link

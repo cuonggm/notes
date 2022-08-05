@@ -15,5 +15,14 @@ html {
 
   --button-border-radius: 2rem;
 
+  --header-item-font-family-1: "Indie Flower", cursive;
+  --header-item-font-family-2: "Righteous", cursive;
+  --header-item-font-size: 1.2rem;
+
   font-size: 16px;
+}
+
+aside#moreSideDrawer {
+  font-family: var(--header-item-font-family-1);
+  font-size: var(--header-item-font-size);
 }

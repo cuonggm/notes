@@ -13,7 +13,6 @@ const AppHeader = (props) => {
   const auth = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-  
 
   // event handlers
   const onLogoutHandler = (event) => {
@@ -24,8 +23,6 @@ const AppHeader = (props) => {
     event.preventDefault();
     dispatch(showThunk());
   };
-
-  
 
   return (
     <Fragment>
@@ -64,16 +61,14 @@ const AppHeader = (props) => {
             </Link>
           )}
 
-          <Button
+          <Link
             onClick={onClickShowMoreButton}
             className={`${styles.moreButton} ${styles.headerDarkItem} moreButton`}
           >
             More
-          </Button>
+          </Link>
         </div>
       </Header>
-
-      
     </Fragment>
   );
 };
