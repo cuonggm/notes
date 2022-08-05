@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Layout } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk } from "../../store/authSlice";
+import { useState } from "react";
 
 const { Header } = Layout;
 
@@ -24,13 +25,19 @@ const AppHeader = (props) => {
       </div>
       <div className={styles.rightContainer}>
         {!auth.isLoggedIn && (
-          <Link to="/login" className={styles.headerAccentItem}>
+          <Link
+            to="/login"
+            className={`${styles.headerAccentItem} ${styles.autoDisplay}`}
+          >
             Login
           </Link>
         )}
 
         {auth.isLoggedIn && (
-          <Link to="#" className={styles.headerMainItem}>
+          <Link
+            to="#"
+            className={`${styles.headerMainItem}  ${styles.autoDisplay}`}
+          >
             {auth.email}
           </Link>
         )}
@@ -38,12 +45,18 @@ const AppHeader = (props) => {
         {auth.isLoggedIn && (
           <Link
             to="#"
-            className={styles.headerAccentItem}
+            className={`${styles.headerAccentItem} ${styles.autoDisplay}`}
             onClick={onLogoutHandler}
           >
             Logout
           </Link>
         )}
+
+        <Link
+          className={`${styles.moreButton} ${styles.headerLightItem} moreButton`}
+        >
+          More
+        </Link>
       </div>
     </Header>
   );
