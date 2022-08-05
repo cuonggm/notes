@@ -1,5 +1,5 @@
-import { Layout } from "antd";
-import { Fragment, useEffect } from "react";
+import { Layout, notification } from "antd";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
 import "./antd-theme/antd-customized.css";
@@ -14,14 +14,25 @@ import { hideThunk } from "./pages/AppHeader/sidedrawerSlice";
 // Do not import. Just get from Layout
 const { Content } = Layout;
 
+const showNotification = (type, message, description) => {
+  notification[type]({
+    message: message,
+    description: description,
+  });
+};
+
 function App() {
   const auth = useSelector((state) => state.auth);
+  const notification = useSelector((state) => state.notification);
 
   const location = useLocation();
   console.log(location);
 
   const dispatch = useDispatch();
   const sidedrawer = useSelector((state) => state.sidedrawer);
+
+  // states
+  const [isFirstTime, setIsFirstTime] = useState(true);
 
   // event handlers
   const onHideSidedrawer = (event) => {
@@ -56,6 +67,21 @@ function App() {
       dispatch(logoutThunk());
     }
   }, [dispatch]);
+
+  // check if there is notification
+  useEffect(() => {
+    if (!isFirstTime) {
+      showNotification(
+        notification.type,
+        notification.message,
+        notification.description
+      );
+    } else {
+      setIsFirstTime((state) => {
+        return !state;
+      });
+    }
+  }, [notification, isFirstTime]);
 
   return (
     <Fragment>

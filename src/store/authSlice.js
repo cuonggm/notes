@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { currentDateTime } from "../util/datetime";
+import { notificationActions } from "./notificationSlice";
 
 const initialState = {
   isLoggedIn: false,
@@ -77,11 +79,25 @@ export const loginThunk = (username, password) => {
         } else {
           rememberUserInfoToLocalStorage(data);
           dispatch(authActions.login(data));
+          dispatch(
+            notificationActions.pushNotification({
+              type: "success",
+              message: "Login Successfully",
+              description: "You are logged in at " + currentDateTime() + "!",
+            })
+          );
         }
       })
       .catch((error) => {
         console.log("Print Login Error:");
         console.log(error);
+        dispatch(
+          notificationActions.pushNotification({
+            type: "error",
+            message: "Error",
+            description: error,
+          })
+        );
       });
   };
 };
@@ -90,6 +106,13 @@ export const logoutThunk = () => {
   return async (dispatch) => {
     clearUserInfoFromLocalStorage();
     dispatch(authActions.logout());
+    dispatch(
+      notificationActions.pushNotification({
+        type: "success",
+        message: "Loggout Successfully",
+        description: "You logged out at " + currentDateTime() + "!",
+      })
+    );
   };
 };
 
