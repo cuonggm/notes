@@ -2,7 +2,7 @@ import { Button, Col, Form, Input, Row } from "antd";
 import { Fragment, useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginThunk } from "../../store/authSlice";
-import "./Login.module.css";
+import styles from "./Login.module.css";
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const Login = (props) => {
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             autoComplete="off"
-            // style={{ width: "150px" }}
+            className={styles.form}
           >
             <Form.Item
               label="Username"
@@ -43,6 +43,7 @@ const Login = (props) => {
               rules={[
                 { required: true, message: "Username can not be empty." },
               ]}
+              className={styles.formItem}
             >
               <Input onChange={onUsernameChange} />
             </Form.Item>
@@ -53,20 +54,18 @@ const Login = (props) => {
               rules={[
                 { required: true, message: "Password can not be empty." },
               ]}
+              className={styles.formItem}
             >
               <Input.Password onChange={onPasswordChange} />
             </Form.Item>
 
             <Form.Item
-              wrapperCol={{
-                offset: 8,
-                span: 16,
-              }}
               style={{
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "center",
               }}
+              className={styles.formItem}
             >
               <Button type="primary" htmlType="submit" onClick={onSignIn}>
                 Login
@@ -79,10 +78,7 @@ const Login = (props) => {
                 flexDirection: "row",
                 justifyContent: "center",
               }}
-              wrapperCol={{
-                offset: 8,
-                span: 16,
-              }}
+              className={styles.formItem}
             >
               <Button type="secondary" htmlType="submit" onClick={onSignUp}>
                 Sign Up

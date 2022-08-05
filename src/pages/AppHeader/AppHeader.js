@@ -19,7 +19,7 @@ const AppHeader = (props) => {
     <Header className={styles.header}>
       <div className={styles.leftContainer}>
         <Link to="/" className={styles.logo}>
-          Home
+          Notes
         </Link>
       </div>
       <div className={styles.rightContainer}>
