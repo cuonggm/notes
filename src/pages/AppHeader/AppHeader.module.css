@@ -55,7 +55,7 @@
   padding: 0 1rem;
   height: 100%;
   text-align: center;
-  border-radius: 2rem;
+  border-radius: var(--button-border-radius);
 }
 
 .headerMainItem:hover {
@@ -76,7 +76,7 @@
   padding: 0 1rem;
   height: 100%;
   text-align: center;
-  border-radius: 2rem;
+  border-radius: var(--button-border-radius);
 }
 
 .headerAccentItem:hover {
@@ -97,12 +97,13 @@
   padding: 0 1rem;
   height: 100%;
   text-align: center;
-  border-radius: 2rem;
+  border-radius: var(--button-border-radius);
 }
 
 .headerDarkItem:hover {
-  background-color: var(--dark-color);
+  background-color: var(--light-dark-color);
   color: var(--light-color);
+  border: none;
 }
 
 /* More Button */
@@ -127,7 +128,7 @@
   height: 3rem;
   margin: 0 1rem;
   text-align: center;
-  border-radius: 2rem;
+  border-radius: var(--button-border-radius);
 }
 
 .sideDrawerItemMain:hover {
@@ -147,7 +148,7 @@
   height: 3rem;
   margin: 0 1rem;
   text-align: center;
-  border-radius: 2rem;
+  border-radius: var(--button-border-radius);
 }
 
 .sideDrawerItemAccent:hover {
@@ -167,12 +168,13 @@
   height: 3rem;
   margin: 0 1rem;
   text-align: center;
-  border-radius: 2rem;
+  border-radius: var(--button-border-radius);
 }
 
 .sideDrawerItemDark:hover {
-  background-color: var(--dark-color);
+  background-color: var(--light-dark-color);
   color: var(--light-color);
+  border: none;
 }
 
 @media (max-width: 48rem) {
