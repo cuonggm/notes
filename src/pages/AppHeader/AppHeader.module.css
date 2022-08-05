@@ -86,7 +86,7 @@
 
 /* Header Accent Color Item */
 
-.headerLightItem {
+.headerDarkItem {
   color: var(--light-color);
   background-color: var(--dark-color);
   font-weight: bold;
@@ -100,7 +100,7 @@
   border-radius: 2rem;
 }
 
-.headerLightItem:hover {
+.headerDarkItem:hover {
   background-color: var(--dark-color);
   color: var(--light-color);
 }
@@ -112,6 +112,67 @@
 
 .autoDisplay {
   display: flex;
+}
+
+/************* For Side Drawer Item *************/
+.sideDrawerItemMain {
+  color: var(--light-color);
+  background-color: var(--main-color);
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 0 1rem;
+  height: 3rem;
+  margin: 0 1rem;
+  text-align: center;
+  border-radius: 2rem;
+}
+
+.sideDrawerItemMain:hover {
+  background-color: var(--light-main-color);
+  color: var(--light-color);
+}
+
+.sideDrawerItemAccent {
+  color: var(--light-color);
+  background-color: var(--accent-color);
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 0 1rem;
+  height: 3rem;
+  margin: 0 1rem;
+  text-align: center;
+  border-radius: 2rem;
+}
+
+.sideDrawerItemAccent:hover {
+  background-color: var(--light-accent-color);
+  color: var(--light-color);
+}
+
+.sideDrawerItemDark {
+  color: var(--light-color);
+  background-color: var(--dark-color);
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  padding: 0 1rem;
+  height: 3rem;
+  margin: 0 1rem;
+  text-align: center;
+  border-radius: 2rem;
+}
+
+.sideDrawerItemDark:hover {
+  background-color: var(--dark-color);
+  color: var(--light-color);
 }
 
 @media (max-width: 48rem) {

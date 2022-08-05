@@ -1,9 +1,11 @@
 import styles from "./AppHeader.module.css";
 import { Link } from "react-router-dom";
-import { Layout } from "antd";
+import { Button, Layout } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk } from "../../store/authSlice";
-import { useState } from "react";
+import { Fragment } from "react";
+import "./AppHeader.css";
+import { showThunk } from "./sidedrawerSlice";
 
 const { Header } = Layout;
 
@@ -11,54 +13,68 @@ const AppHeader = (props) => {
   const auth = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+  
 
+  // event handlers
   const onLogoutHandler = (event) => {
     dispatch(logoutThunk());
   };
 
+  const onClickShowMoreButton = (event) => {
+    event.preventDefault();
+    dispatch(showThunk());
+  };
+
+  
+
   return (
-    <Header className={styles.header}>
-      <div className={styles.leftContainer}>
-        <Link to="/" className={styles.logo}>
-          Notes
-        </Link>
-      </div>
-      <div className={styles.rightContainer}>
-        {!auth.isLoggedIn && (
-          <Link
-            to="/login"
-            className={`${styles.headerAccentItem} ${styles.autoDisplay}`}
-          >
-            Login
+    <Fragment>
+      <Header className={styles.header}>
+        <div className={styles.leftContainer}>
+          <Link to="/" className={styles.logo}>
+            Notes
           </Link>
-        )}
+        </div>
+        <div className={styles.rightContainer}>
+          {!auth.isLoggedIn && (
+            <Link
+              to="/login"
+              className={`${styles.headerAccentItem} ${styles.autoDisplay}`}
+            >
+              Login
+            </Link>
+          )}
 
-        {auth.isLoggedIn && (
-          <Link
-            to="#"
-            className={`${styles.headerMainItem}  ${styles.autoDisplay}`}
+          {auth.isLoggedIn && (
+            <Link
+              to="#"
+              className={`${styles.headerMainItem}  ${styles.autoDisplay}`}
+            >
+              {auth.email}
+            </Link>
+          )}
+
+          {auth.isLoggedIn && (
+            <Link
+              to="#"
+              className={`${styles.headerAccentItem} ${styles.autoDisplay}`}
+              onClick={onLogoutHandler}
+            >
+              Logout
+            </Link>
+          )}
+
+          <Button
+            onClick={onClickShowMoreButton}
+            className={`${styles.moreButton} ${styles.headerDarkItem} moreButton`}
           >
-            {auth.email}
-          </Link>
-        )}
+            More
+          </Button>
+        </div>
+      </Header>
 
-        {auth.isLoggedIn && (
-          <Link
-            to="#"
-            className={`${styles.headerAccentItem} ${styles.autoDisplay}`}
-            onClick={onLogoutHandler}
-          >
-            Logout
-          </Link>
-        )}
-
-        <Link
-          className={`${styles.moreButton} ${styles.headerLightItem} moreButton`}
-        >
-          More
-        </Link>
-      </div>
-    </Header>
+      
+    </Fragment>
   );
 };
 
