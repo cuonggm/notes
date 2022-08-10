@@ -33,6 +33,15 @@ const AppHeader = (props) => {
           </Link>
         </div>
         <div className={styles.rightContainer}>
+          {auth.isLoggedIn && (
+            <Link
+              to="/createList"
+              className={`${styles.headerMainItem} ${styles.autoDisplay}`}
+            >
+              Create List
+            </Link>
+          )}
+
           {!auth.isLoggedIn && (
             <Link
               to="/login"

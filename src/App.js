@@ -1,7 +1,7 @@
 import { Layout, notification } from "antd";
 import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect, Route, Switch, useLocation } from "react-router-dom";
+import { Link, Redirect, Route, Switch } from "react-router-dom";
 import "./antd-theme/antd-customized.css";
 import "./App.css";
 import AppHeader from "./pages/AppHeader/AppHeader";
@@ -10,12 +10,22 @@ import { authActions, logoutThunk } from "./store/authSlice";
 import styles from "./App.module.css";
 import appHeaderStyles from "./pages/AppHeader/AppHeader.module.css";
 import { hideThunk } from "./pages/AppHeader/sidedrawerSlice";
+import "./pages/CreateListPage/CreateListPage";
+import CreateListPage from "./pages/CreateListPage/CreateListPage";
 
 // Do not import. Just get from Layout
 const { Content } = Layout;
 
+// For Notification
 const showNotification = (type, message, description) => {
-  notification[type]({
+  let targetNotification = () => {};
+  if (type === "success") {
+    targetNotification = notification.success;
+  }
+  if (type === "error") {
+    targetNotification = notification.error;
+  }
+  targetNotification({
     message: message,
     description: description,
   });
@@ -23,10 +33,10 @@ const showNotification = (type, message, description) => {
 
 function App() {
   const auth = useSelector((state) => state.auth);
-  const notification = useSelector((state) => state.notification);
+  const notificationSlice = useSelector((state) => state.notification);
 
-  const location = useLocation();
-  console.log(location);
+  // const location = useLocation();
+  // console.log(location);
 
   const dispatch = useDispatch();
   const sidedrawer = useSelector((state) => state.sidedrawer);
@@ -66,22 +76,22 @@ function App() {
     } else {
       dispatch(logoutThunk());
     }
-  }, [dispatch]);
+  }, [dispatch, isFirstTime]);
 
   // check if there is notification
   useEffect(() => {
     if (!isFirstTime) {
       showNotification(
-        notification.type,
-        notification.message,
-        notification.description
+        notificationSlice.type,
+        notificationSlice.message,
+        notificationSlice.description
       );
     } else {
       setIsFirstTime((state) => {
         return !state;
       });
     }
-  }, [notification, isFirstTime]);
+  }, [notificationSlice, isFirstTime]);
 
   return (
     <Fragment>
@@ -93,6 +103,9 @@ function App() {
               <Route path="/login">
                 {auth.isLoggedIn === true && <Redirect to="/" />}
                 {auth.isLoggedIn === false && <Login />}
+              </Route>
+              <Route path="/createList">
+                <CreateListPage />
               </Route>
             </Switch>
           </Content>
