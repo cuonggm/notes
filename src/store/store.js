@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import authReducer from "./authSlice";
-import sidedrawerReducer from "../pages/AppHeader/sidedrawerSlice";
+import sidedrawerReducer from "../components/HeaderComponent/sidedrawerSlice";
 import notificationReducer from "./notificationSlice";
 import loadingSlice from "./loadingSlice";
 

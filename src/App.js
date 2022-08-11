@@ -1,65 +1,58 @@
 import {Layout, notification} from "antd";
-import {Fragment, useEffect, useState} from "react";
+import {Fragment, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Link, Redirect, Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import "./antd-theme/antd-customized.css";
 import "./App.css";
-import AppHeader from "./pages/AppHeader/AppHeader";
 import Login from "./pages/Login/Login";
-import {authActions, logoutThunk} from "./store/authSlice";
+import {authActions, clearUserInfoFromLocalStorage} from "./store/authSlice";
 import styles from "./App.module.css";
-import appHeaderStyles from "./pages/AppHeader/AppHeader.module.css";
-import {hideThunk} from "./pages/AppHeader/sidedrawerSlice";
 import "./pages/CreateListPage/CreateListPage";
 import CreateListPage from "./pages/CreateListPage/CreateListPage";
 import ShowListsPage from "./pages/ShowListsPage/ShowListsPage";
+import ShowListDetailPage from "./pages/ShowListDetailPage/ShowListDetailPage";
+import HeaderPage from "./pages/HeaderPage/HeaderPage";
 
 // Do not import. Just get from Layout
 const {Content} = Layout;
 
 // For Notification
 const showNotification = (type, message, description) => {
-    let targetNotification = () => {
-    };
-    if (type === "success") {
-        targetNotification = notification.success;
+
+    let targetNotification = undefined;
+
+    switch (type) {
+        case "success":
+            targetNotification = notification.success;
+            break;
+        case "error":
+            targetNotification = notification.error;
+            break;
+        case "warn":
+            targetNotification = notification.warn;
+            break;
+        case "info":
+            targetNotification = notification.info;
+            break;
+        default:
+            targetNotification = notification.error;
+            break;
     }
-    if (type === "error") {
-        targetNotification = notification.error;
-    }
+
     targetNotification({
         message: message,
         description: description,
     });
+
 };
 
 function App() {
+    // Dispatch
+    const dispatch = useDispatch();
+
+    // Slices
     const auth = useSelector((state) => state.auth);
     const notificationSlice = useSelector((state) => state.notification);
-
-    // const location = useLocation();
-    // console.log(location);
-
-    const dispatch = useDispatch();
-    const sidedrawer = useSelector((state) => state.sidedrawer);
-
-    // states
-    const [isFirstTime, setIsFirstTime] = useState(true);
-
-    // event handlers
-    const onHideSidedrawer = (event) => {
-        dispatch(hideThunk());
-    };
-
-    const onLogoutHandler = (event) => {
-        dispatch(logoutThunk());
-        dispatch(hideThunk());
-    };
-
-    const onClickHideMoreButton = (event) => {
-        event.preventDefault();
-        dispatch(hideThunk());
-    };
 
     // Check if logged after F5 (one time)
     useEffect(() => {
@@ -76,28 +69,24 @@ function App() {
             };
             dispatch(authActions.updateUserInfoStatus(data));
         } else {
-            dispatch(logoutThunk());
+            clearUserInfoFromLocalStorage();
         }
-    }, [dispatch, isFirstTime]);
+    }, [dispatch]);
 
     // check if there is notification
     useEffect(() => {
-        if (!isFirstTime) {
+        if (notificationSlice.message !== "" ) {
             showNotification(
                 notificationSlice.type,
                 notificationSlice.message,
                 notificationSlice.description
             );
-        } else {
-            setIsFirstTime((state) => {
-                return !state;
-            });
         }
-    }, [notificationSlice, isFirstTime]);
+    }, [notificationSlice]);
 
     return (
         <Fragment>
-            <AppHeader/>
+            <HeaderPage/>
             <Layout className={styles.mainLayout}>
                 <Layout>
                     <Content className={styles.mainContentLayout}>
@@ -112,52 +101,13 @@ function App() {
                             <Route path="/showLists">
                                 {auth.isLoggedIn === true && <ShowListsPage/>}
                             </Route>
+                            <Route path="/users/:userId/lists/:listId">
+                                {auth.isLoggedIn === true && <ShowListDetailPage/>}
+                            </Route>
                         </Switch>
                     </Content>
                 </Layout>
             </Layout>
-
-            {sidedrawer.isSidedrawerShow && (
-                <aside id="moreSideDrawer">
-                    <Link
-                        to="#"
-                        onClick={onClickHideMoreButton}
-                        className={`${appHeaderStyles.moreButton} ${appHeaderStyles.sideDrawerItemDark} moreButton`}
-                    >
-                        Close
-                    </Link>
-
-                    {!auth.isLoggedIn && (
-                        <Link
-                            to="/login"
-                            onClick={onHideSidedrawer}
-                            className={`${appHeaderStyles.sideDrawerItemAccent}`}
-                        >
-                            Login
-                        </Link>
-                    )}
-
-                    {auth.isLoggedIn && (
-                        <Link
-                            to="#"
-                            onClick={onHideSidedrawer}
-                            className={`${appHeaderStyles.sideDrawerItemMain}`}
-                        >
-                            {auth.email}
-                        </Link>
-                    )}
-
-                    {auth.isLoggedIn && (
-                        <Link
-                            to="#"
-                            className={`${appHeaderStyles.sideDrawerItemAccent}`}
-                            onClick={onLogoutHandler}
-                        >
-                            Logout
-                        </Link>
-                    )}
-                </aside>
-            )}
         </Fragment>
     );
 }

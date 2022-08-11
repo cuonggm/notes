@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk } from "../../store/authSlice";
 import { Fragment } from "react";
 import "./AppHeader.css";
-import { showThunk } from "./sidedrawerSlice";
+import { showThunk } from "../../components/HeaderComponent/sidedrawerSlice";
 
 const { Header } = Layout;
 

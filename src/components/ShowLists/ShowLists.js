@@ -7,7 +7,7 @@ const ShowLists = (props) => {
 
         {items.map(item => {
             return <Col key={item.id} style={{width: "100%"}}>
-                <Link to={`/${props.localId}/lists/${item.id}`}>{item.name}</Link>
+                <Link to={`/users/${props.localId}/lists/${item.id}`}>{item.name}</Link>
             </Col>
         })}
 

@@ -107,11 +107,11 @@ export const logoutThunk = () => {
     clearUserInfoFromLocalStorage();
     dispatch(authActions.logout());
     dispatch(
-      notificationActions.pushNotification({
-        type: "success",
-        message: "Loggout Successfully",
-        description: "You logged out at " + currentDateTime() + "!",
-      })
+        notificationActions.pushNotification({
+          type: "success",
+          message: "Loggout Successfully",
+          description: "You logged out at " + currentDateTime() + "!",
+        })
     );
   };
 };
@@ -128,7 +128,7 @@ const rememberUserInfoToLocalStorage = (userInfo) => {
   localStorage.setItem("registered", userInfo.registered);
 };
 
-const clearUserInfoFromLocalStorage = () => {
+export const clearUserInfoFromLocalStorage = () => {
   localStorage.removeItem("displayName");
   localStorage.removeItem("email");
   localStorage.removeItem("expiresIn");

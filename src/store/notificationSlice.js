@@ -17,6 +17,11 @@ const notificationSlice = createSlice({
       state.message = data.message;
       state.description = data.description;
     },
+    clear: (state) => {
+      state.type = "";
+      state.message = "";
+      state.description = "";
+    }
   },
 });
 
