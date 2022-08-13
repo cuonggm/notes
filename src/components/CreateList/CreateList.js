@@ -1,9 +1,11 @@
-import { Form, Input, Button} from "antd";
+import {Form, Input, Button, Spin} from "antd";
+import {useState} from "react";
 
 const CreateList = (props) => {
 
     const listNameProp = props.listNameProp;
 
+    const [isLoading, setLoading] = useState(false);
     const [form] = Form.useForm();
 
     const onNameChange = (event) => {
@@ -12,40 +14,45 @@ const CreateList = (props) => {
         })
     }
 
-    const onSubmit = (event) => {
-        props.onSubmit();
+    const onSubmit = async (event) => {
+        setLoading(true);
+        const data = await props.onSubmit();
+        setLoading(false);
+        form.resetFields();
     }
 
     return (
         <div>
             <h1>Create List</h1>
             <div>
-                <Form
-                    form={form}
-                    layout="horizontal"
-                    labelCol={{span: 4}}
-                    wrapperCol={{span: 20}}
-                >
-                    <Form.Item
-                        initialValue={listNameProp.listName}
-                        label="List name"
-                        name="listName"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Please input your List name.",
-                            },
-                        ]}
+                <Spin spinning={isLoading}>
+                    <Form
+                        form={form}
+                        layout="horizontal"
+                        labelCol={{span: 4}}
+                        wrapperCol={{span: 20}}
                     >
-                        <Input onChange={onNameChange}/>
-                    </Form.Item>
+                        <Form.Item
+                            initialValue=""
+                            label="List name"
+                            name="listName"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Please input your List name.",
+                                },
+                            ]}
+                        >
+                            <Input onChange={onNameChange}/>
+                        </Form.Item>
 
-                    <Form.Item wrapperCol={{offset: 4, span: 20}}>
-                        <Button type="primary" onClick={onSubmit}>
-                            Create
-                        </Button>
-                    </Form.Item>
-                </Form>
+                        <Form.Item wrapperCol={{offset: 4, span: 20}}>
+                            <Button type="primary" onClick={onSubmit}>
+                                Create
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                </Spin>
             </div>
         </div>
     );

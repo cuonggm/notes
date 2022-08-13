@@ -24,7 +24,7 @@ const TimeComponent = (props) => {
     }, [timeSlice.isRunning, dispatch]);
 
     return <Fragment>
-        {timeSlice.isRunning && <div>Logout in: {timeSlice.timeRemain}s</div>}
+        {timeSlice.isRunning && <div>{timeSlice.timeRemain} s</div>}
     </Fragment>
 }
 
