@@ -50,3 +50,18 @@ export const getList = async (listId, userId, userToken) => {
         throw "Error: getList of" + listId;
     }
 }
+
+export const deleteList = async (listId, userId, userToken) => {
+    const url = `https://notes-cuonggm-com-default-rtdb.firebaseio.com/users/${userId}/lists/${listId}.json?auth=${userToken}`;
+    console.log("Delete url: " + url);
+    const res = await fetch(url, {
+        method: "DELETE",
+    });
+    if(res.ok) {
+        const data = await res.json();
+        console.log(data);
+        return data;
+    } else {
+        throw "Error: deleteList of" + listId;
+    }
+}
