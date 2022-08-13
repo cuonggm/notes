@@ -4,6 +4,7 @@ import {Fragment} from "react";
 import {Layout} from "antd";
 import "./HeaderComponent.css"
 import LinkComponent from "../LinkComponent/LinkComponent";
+import TimeComponent from "../TimeComponent";
 
 const {Header} = Layout;
 
@@ -20,6 +21,7 @@ const HeaderComponent = (props) => {
             </div>
 
             <div className={styles.rightContainer}>
+                <TimeComponent/>
                 {
                     links.map(link => {
                         if (link.display) {

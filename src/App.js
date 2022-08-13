@@ -12,6 +12,8 @@ import CreateListPage from "./pages/CreateListPage/CreateListPage";
 import ShowListsPage from "./pages/ShowListsPage/ShowListsPage";
 import ShowListDetailPage from "./pages/ShowListDetailPage/ShowListDetailPage";
 import HeaderPage from "./pages/HeaderPage/HeaderPage";
+import {calculateRemainTime} from "./util/datetime";
+import {timeActions} from "./components/TimeComponent/timeSlice";
 
 // Do not import. Just get from Layout
 const {Content} = Layout;
@@ -54,6 +56,8 @@ function App() {
     const auth = useSelector((state) => state.auth);
     const notificationSlice = useSelector((state) => state.notification);
 
+    // TimeComponent
+
     // Check if logged after F5 (one time)
     useEffect(() => {
         if (localStorage.getItem("idToken") !== null) {
@@ -63,11 +67,18 @@ function App() {
                 registered: localStorage.getItem("registered"),
                 idToken: localStorage.getItem("idToken"),
                 expiresIn: localStorage.getItem("expiresIn"),
+                expireTime: localStorage.getItem("expireTime"),
                 email: localStorage.getItem("email"),
                 kind: localStorage.getItem("kind"),
                 localId: localStorage.getItem("localId"),
             };
             dispatch(authActions.updateUserInfoStatus(data));
+
+            console.log("Remaining time:");
+            const remainTime = calculateRemainTime(parseInt(data.expireTime, 10));
+            console.log("REMAIN: " + remainTime);
+            dispatch(timeActions.setTimeRemain({timeRemain: remainTime}));
+            dispatch(timeActions.setRunning({isRunning: true}));
         } else {
             clearUserInfoFromLocalStorage();
         }
@@ -75,7 +86,7 @@ function App() {
 
     // check if there is notification
     useEffect(() => {
-        if (notificationSlice.message !== "" ) {
+        if (notificationSlice.message !== "") {
             showNotification(
                 notificationSlice.type,
                 notificationSlice.message,

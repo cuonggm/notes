@@ -22,12 +22,6 @@ const HeaderPage = (props) => {
             display: auth.isLoggedIn ? true : false
         },
         {
-            to: "/createList",
-            label: "Create List",
-            type: "primary",
-            display: auth.isLoggedIn ? true : false
-        },
-        {
             to: "/login",
             label: "Login",
             type: "secondary",
@@ -40,7 +34,6 @@ const HeaderPage = (props) => {
             display: auth.isLoggedIn ? true : false,
             onClick: onLogoutHandler
         }];
-
     return <HeaderComponent links={links}/>
 }
 
