@@ -93,6 +93,11 @@ export const loginThunk = (username, password) => {
                     const remainTime = calculateRemainTime(data.expireTime);
                     dispatch(timeActions.setTimeRemain({timeRemain: remainTime}));
                     dispatch(timeActions.setRunning({isRunning: true}));
+                    // auto logout
+                    let logoutTime = parseInt(localStorage.getItem("expireTime"));
+                    const now = new Date();
+                    let remainMilisec = logoutTime - now.getTime();
+                    autoLogout(remainMilisec, dispatch);
                 }
             })
             .catch((error) => {
@@ -109,12 +114,6 @@ export const loginThunk = (username, password) => {
     };
 };
 
-const calculateExpireTime = (expiresIn) => {
-    const expiresInInt = parseInt(expiresIn, 10);
-    const now = new Date();
-    const expireTime = new Date(now.getTime() + expiresInInt * 1000);
-    return expireTime.getTime();
-}
 
 export const logoutThunk = () => {
     return async (dispatch) => {
@@ -156,6 +155,23 @@ export const clearUserInfoFromLocalStorage = () => {
     localStorage.removeItem("refreshToken");
     localStorage.removeItem("registered");
 };
+
+const calculateExpireTime = (expiresIn) => {
+    const expiresInInt = parseInt(expiresIn, 10);
+    const now = new Date();
+    const expireTime = new Date(now.getTime() + expiresInInt * 1000);
+    return expireTime.getTime();
+}
+
+
+export const autoLogout = (remainTime, dispatch) => {
+    console.log("AutoLogout RemainTime: " + remainTime);
+    console.log("Set auto logout after: " + remainTime);
+    setTimeout(() => {
+        clearUserInfoFromLocalStorage();
+        dispatch(logoutThunk());
+    }, remainTime);
+}
 
 // Exports
 export const authActions = authSlice.actions;

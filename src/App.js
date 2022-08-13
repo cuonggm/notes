@@ -5,7 +5,7 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import "./antd-theme/antd-customized.css";
 import "./App.css";
 import Login from "./pages/Login/Login";
-import {authActions, clearUserInfoFromLocalStorage} from "./store/authSlice";
+import {authActions, autoLogout, clearUserInfoFromLocalStorage} from "./store/authSlice";
 import styles from "./App.module.css";
 import "./pages/CreateListPage/CreateListPage";
 import CreateListPage from "./pages/CreateListPage/CreateListPage";
@@ -83,6 +83,16 @@ function App() {
             clearUserInfoFromLocalStorage();
         }
     }, [dispatch]);
+
+    // auto logout after refresh f5
+    useEffect(() => {
+        if (localStorage.getItem("expireTime") !== null) {
+            let logoutTime = parseInt(localStorage.getItem("expireTime"));
+            const now = new Date();
+            let remainMilisec = logoutTime - now.getTime();
+            autoLogout(remainMilisec, dispatch);
+        }
+    }, [dispatch])
 
     // check if there is notification
     useEffect(() => {
