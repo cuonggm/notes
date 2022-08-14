@@ -65,7 +65,7 @@ const ShowListDetail = (props) => {
         <div>
             <h1>Create word</h1>
             <Spin spinning={createLoading}>
-                <Form form={form} labelCol={{span: 4}} wrapperCol={{span: 20}}>
+                <Form form={form} labelCol={{span: 2}} wrapperCol={{span: 20}}>
                     <Form.Item name="content" label="Word" initialValue="">
                         <Input onChange={onContentChange}/>
                     </Form.Item>

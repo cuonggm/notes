@@ -1,7 +1,6 @@
 import {Button, Table} from "antd";
 import {Link} from "react-router-dom";
-import {Fragment, useEffect, useState} from "react";
-import {deleteList} from "../../api/ListApi/ListApi";
+import {Fragment} from "react";
 
 
 const ShowLists = (props) => {

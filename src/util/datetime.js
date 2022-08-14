@@ -21,3 +21,7 @@ export const calculateRemainTime = (futureTime) => {
     console.log("REMAIN: " + remainTime);
     return Math.floor(remainTime);
 }
+
+export const dateToString = (timestamp) => {
+    return new Date(timestamp).toLocaleString();
+}

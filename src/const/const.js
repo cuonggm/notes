@@ -1,0 +1,1 @@
+export const apiRootUrl = "https://notes-cuonggm-com-default-rtdb.firebaseio.com";

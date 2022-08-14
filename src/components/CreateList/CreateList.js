@@ -17,6 +17,7 @@ const CreateList = (props) => {
     const onSubmit = async (event) => {
         setLoading(true);
         const data = await props.onSubmit();
+        console.log(data);
         setLoading(false);
         form.resetFields();
     }
