@@ -82,7 +82,7 @@ const ShowListDetail = (props) => {
                         <Input onChange={onKanjiChange}/>
                     </Form.Item>
 
-                    <Form.Item wrapperCol={{offset: 4, span: 20}}>
+                    <Form.Item wrapperCol={{offset: 2, span: 22}}>
                         <Button type="primary" onClick={onSubmit}>Create Word</Button>
                     </Form.Item>
                 </Form>

@@ -14,6 +14,7 @@ import ShowListDetailPage from "./pages/ShowListDetailPage/ShowListDetailPage";
 import HeaderPage from "./pages/HeaderPage/HeaderPage";
 import {calculateRemainTime} from "./util/datetime";
 import {timeActions} from "./components/TimeComponent/timeSlice";
+import MainComponent from "./features/notes/MainComponent";
 
 // Do not import. Just get from Layout
 const {Content} = Layout;
@@ -124,6 +125,13 @@ function App() {
                             </Route>
                             <Route path="/users/:userId/lists/:listId">
                                 {auth.isLoggedIn === true && <ShowListDetailPage/>}
+                            </Route>
+                            <Route path="/notes">
+                                {auth.isLoggedIn && <MainComponent/>}
+                                {!auth.isLoggedIn && <Redirect to="/login"/>}
+                            </Route>
+                            <Route path="/">
+                                <Redirect to="/notes"/>
                             </Route>
                         </Switch>
                     </Content>
