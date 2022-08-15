@@ -56,7 +56,6 @@ function App() {
 
     // Slices
     const auth = useSelector((state) => state.auth);
-    console.log("isLoggedIn=" + auth.isLoggedIn);
     const notificationSlice = useSelector((state) => state.notification);
 
     // TimeComponent
@@ -77,9 +76,7 @@ function App() {
             };
             dispatch(authActions.updateUserInfoStatus(data));
 
-            console.log("Remaining time:");
             const remainTime = calculateRemainTime(parseInt(data.expireTime, 10));
-            console.log("REMAIN: " + remainTime);
             dispatch(timeActions.setTimeRemain({timeRemain: remainTime}));
             dispatch(timeActions.setRunning({isRunning: true}));
         } else {
@@ -106,6 +103,7 @@ function App() {
                 notificationSlice.description
             );
         }
+
     }, [notificationSlice]);
 
     return (
@@ -131,7 +129,7 @@ function App() {
                                 {auth.isLoggedIn && <ShowListDetailPage/>}
                             </Route>
                             <Route path="/createNote">
-                                {auth.isLoggedIn && <CreateNotePage/>}
+                                {auth.isLoggedIn && <CreateNotePage auth={auth}/>}
                             </Route>
                             <Route path="/notes">
                                 {auth.isLoggedIn ? <MainPage/> : <Redirect to="/login"/>}

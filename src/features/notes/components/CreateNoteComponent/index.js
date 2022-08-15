@@ -1,16 +1,49 @@
 import {Fragment, useState} from "react";
 import {Button, DatePicker, Form, Input, Radio, Switch, Tag, TimePicker} from "antd";
 import {breakTags} from "../../util/util";
+import {
+    getDateFromMoment, getTimeFromMoment,
+} from "../../../../util/datetime";
+import moment from "moment";
 
 const CreateNoteComponent = (props) => {
+    const [title, setTitle] = useState("");
+    const [note, setNote] = useState("");
+    const [date, setDate] = useState(null);
+    const [time, setTime] = useState(null);
     const [tags, setTags] = useState([]);
     const [priority, setPriority] = useState("medium")
+
+    // Datepicker
+    const onDateChange = (date, dateString) => {
+        if (date === null) {
+            return;
+        }
+        setDate(state => {
+            return date.toDate();
+        })
+    }
+
+    // Timepicker
+    const onTimeChange = (time, timeString) => {
+        if (time === null) {
+            return;
+        }
+        setTime(state => {
+            return time.toDate();
+        })
+    }
 
     const onTagsChange = (event) => {
         let tagList = breakTags(event.target.value);
         setTags(state => {
             return tagList;
         });
+    }
+
+    const onSubmit = (event) => {
+        console.log(date);
+        console.log(time);
     }
 
     const priorityOptions = [
@@ -44,12 +77,12 @@ const CreateNoteComponent = (props) => {
                 <Input/>
             </Form.Item>
 
-            <Form.Item name="date" label="Date">
-                <DatePicker format={"DD/MM/YYYY"}/>
+            <Form.Item name="date" label="Date" initialValue={moment(new Date())}>
+                <DatePicker format={"DD/MM/YYYY"} onChange={onDateChange}/>
             </Form.Item>
 
-            <Form.Item name="time" label="Time">
-                <TimePicker format={"HH:mm"}/>
+            <Form.Item name="time" label="Time" initialValue={moment(new Date())}>
+                <TimePicker format={"HH:mm"} onChange={onTimeChange}/>
             </Form.Item>
 
             <Form.Item name="tags" label="Tags">
@@ -80,7 +113,7 @@ const CreateNoteComponent = (props) => {
             </Form.Item>
 
             <Form.Item wrapperCol={{offset: 2, span: 22}}>
-                <Button type="primary">Create</Button>
+                <Button type="primary" onClick={onSubmit}>Create</Button>
             </Form.Item>
 
         </Form>

@@ -101,7 +101,6 @@ export const loginThunk = (username, password) => {
                 }
             })
             .catch((error) => {
-                console.log("Print Login Error:");
                 console.log(error);
                 dispatch(
                     notificationActions.pushNotification({
@@ -165,8 +164,6 @@ const calculateExpireTime = (expiresIn) => {
 
 
 export const autoLogout = (remainTime, dispatch) => {
-    console.log("AutoLogout RemainTime: " + remainTime);
-    console.log("Set auto logout after: " + remainTime);
     setTimeout(() => {
         clearUserInfoFromLocalStorage();
         dispatch(logoutThunk());

@@ -31,8 +31,6 @@ export const notifyMessage = (message, description, type, dispatch) => {
         message: message,
         description: description,
     }));
-
-    // dispatch(notificationActions.clear());
 }
 
 export const notificationActions = notificationSlice.actions;
