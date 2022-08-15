@@ -1,6 +1,7 @@
 import {Fragment, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {timeActions} from "./timeSlice";
+import {diffMins} from "../../util/datetime";
 
 const TimeComponent = (props) => {
 
@@ -24,7 +25,7 @@ const TimeComponent = (props) => {
     }, [timeSlice.isRunning, dispatch]);
 
     return <Fragment>
-        {timeSlice.isRunning && <div>{timeSlice.timeRemain} s</div>}
+        {timeSlice.isRunning && <div>{diffMins(timeSlice.timeRemain).toFixed(0)} mins</div>}
     </Fragment>
 }
 

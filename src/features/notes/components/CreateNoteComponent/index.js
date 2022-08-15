@@ -2,17 +2,36 @@ import {Fragment, useState} from "react";
 import {Button, DatePicker, Form, Input, Radio, Switch, Tag, TimePicker} from "antd";
 import {breakTags} from "../../util/util";
 import {
-    getDateFromMoment, getTimeFromMoment,
+    getDateFromMoment, getTimeFromMoment, toDate,
 } from "../../../../util/datetime";
 import moment from "moment";
 
 const CreateNoteComponent = (props) => {
+
+    // For getting Input values
     const [title, setTitle] = useState("");
     const [note, setNote] = useState("");
-    const [date, setDate] = useState(null);
-    const [time, setTime] = useState(null);
+    const now = new Date();
+    const [date, setDate] = useState(now);
+    const [time, setTime] = useState(now);
     const [tags, setTags] = useState([]);
     const [priority, setPriority] = useState("medium")
+
+    // Initial Input Values
+
+    const priorityOptions = [{
+        label: "Low", value: "low"
+    }, {
+        label: "Medium", value: "medium"
+    }, {
+        label: "High", value: "high"
+    },];
+
+    const onPriorityChange = ({target: {value}}) => {
+        setPriority(value);
+    };
+
+    // Event Handlers
 
     // Datepicker
     const onDateChange = (date, dateString) => {
@@ -34,6 +53,7 @@ const CreateNoteComponent = (props) => {
         })
     }
 
+    // Tags
     const onTagsChange = (event) => {
         let tagList = breakTags(event.target.value);
         setTags(state => {
@@ -41,29 +61,11 @@ const CreateNoteComponent = (props) => {
         });
     }
 
+    // Submit Button Clicked
     const onSubmit = (event) => {
-        console.log(date);
-        console.log(time);
+        const timestamp = toDate(date, time).getTime();
+        console.log(timestamp);
     }
-
-    const priorityOptions = [
-        {
-            label: "Low",
-            value: "low"
-        },
-        {
-            label: "Medium",
-            value: "medium"
-        },
-        {
-            label: "High",
-            value: "high"
-        },
-    ];
-
-    const onPriorityChange = ({target: {value}}) => {
-        setPriority(value);
-    };
 
     return <Fragment>
         <h1>CreateNoteComponent</h1>
@@ -77,8 +79,8 @@ const CreateNoteComponent = (props) => {
                 <Input/>
             </Form.Item>
 
-            <Form.Item name="date" label="Date" initialValue={moment(new Date())}>
-                <DatePicker format={"DD/MM/YYYY"} onChange={onDateChange}/>
+            <Form.Item name="date" label="Date" initialValue={moment(now)}>
+                <DatePicker format={"DD/MM/YYYY"} onChange={moment(now)}/>
             </Form.Item>
 
             <Form.Item name="time" label="Time" initialValue={moment(new Date())}>
