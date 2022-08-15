@@ -1,6 +1,6 @@
 import {Fragment, useState} from "react";
 import {Button, DatePicker, Form, Input, Radio, Switch, Tag, TimePicker} from "antd";
-import {breakTags} from "../util/util";
+import {breakTags} from "../../util/util";
 
 const CreateNoteComponent = (props) => {
     const [tags, setTags] = useState([]);
@@ -33,7 +33,7 @@ const CreateNoteComponent = (props) => {
     };
 
     return <Fragment>
-        <h1>Create Note</h1>
+        <h1>CreateNoteComponent</h1>
         <Form size="large" labelCol={{span: 2}} wrapperCol={{span: 20}}>
 
             <Form.Item name="title" label="Title">

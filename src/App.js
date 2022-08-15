@@ -14,7 +14,8 @@ import ShowListDetailPage from "./pages/ShowListDetailPage/ShowListDetailPage";
 import HeaderPage from "./pages/HeaderPage/HeaderPage";
 import {calculateRemainTime} from "./util/datetime";
 import {timeActions} from "./components/TimeComponent/timeSlice";
-import MainComponent from "./features/notes/MainComponent";
+import MainPage from "./features/notes/MainPage";
+import CreateNotePage from "./features/notes/CreateNotePage";
 
 // Do not import. Just get from Layout
 const {Content} = Layout;
@@ -55,6 +56,7 @@ function App() {
 
     // Slices
     const auth = useSelector((state) => state.auth);
+    console.log("isLoggedIn=" + auth.isLoggedIn);
     const notificationSlice = useSelector((state) => state.notification);
 
     // TimeComponent
@@ -113,25 +115,29 @@ function App() {
                 <Layout>
                     <Content className={styles.mainContentLayout}>
                         <Switch>
+                            <Route path="/" exact>
+                                <Redirect to="/notes"/>
+                            </Route>
                             <Route path="/login">
-                                {auth.isLoggedIn === true && <Redirect to="/"/>}
-                                {auth.isLoggedIn === false && <Login/>}
+                                {auth.isLoggedIn ? <Redirect to="/"/> : <Login/>}
                             </Route>
                             <Route path="/createList">
-                                {auth.isLoggedIn === true && <CreateListPage/>}
+                                {auth.isLoggedIn && <CreateListPage/>}
                             </Route>
                             <Route path="/showLists">
-                                {auth.isLoggedIn === true && <ShowListsPage/>}
+                                {auth.isLoggedIn && <ShowListsPage/>}
                             </Route>
                             <Route path="/users/:userId/lists/:listId">
-                                {auth.isLoggedIn === true && <ShowListDetailPage/>}
+                                {auth.isLoggedIn && <ShowListDetailPage/>}
+                            </Route>
+                            <Route path="/createNote">
+                                {auth.isLoggedIn && <CreateNotePage/>}
                             </Route>
                             <Route path="/notes">
-                                {auth.isLoggedIn && <MainComponent/>}
-                                {!auth.isLoggedIn && <Redirect to="/login"/>}
+                                {auth.isLoggedIn ? <MainPage/> : <Redirect to="/login"/>}
                             </Route>
                             <Route path="/">
-                                <Redirect to="/notes"/>
+                                <Redirect to="/"/>
                             </Route>
                         </Switch>
                     </Content>
