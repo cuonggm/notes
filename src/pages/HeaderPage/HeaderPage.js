@@ -8,36 +8,7 @@ const HeaderPage = (props) => {
     const dispatch = useDispatch();
     const auth = useSelector(state => state.auth);
 
-    // Event Handlers
-    const onLogoutHandler = (event) => {
-        dispatch(logoutThunk());
-    }
-
-    // Define Header Links
-    const links = [
-        {
-            to: "/showLists",
-            label: "Lists",
-            type: "primary",
-            display: auth.isLoggedIn ? true : false,
-            autoHide: true,
-        },
-        {
-            to: "/login",
-            label: "Login",
-            type: "secondary",
-            display: !auth.isLoggedIn ? true : false,
-            autoHide: false,
-        },
-        {
-            to: "/logout",
-            label: "Logout",
-            type: "secondary",
-            display: auth.isLoggedIn ? true : false,
-            onClick: onLogoutHandler,
-            autoHide: false,
-        }];
-    return <HeaderComponent links={links}/>
+    return <HeaderComponent links={props.links}/>
 }
 
 export default HeaderPage;

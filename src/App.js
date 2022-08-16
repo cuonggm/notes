@@ -1,11 +1,11 @@
 import {Layout, notification} from "antd";
-import {Fragment, useEffect} from "react";
+import {Fragment, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Redirect, Route, Switch} from "react-router-dom";
 import "./antd-theme/antd-customized.css";
 import "./App.css";
 import Login from "./pages/Login/Login";
-import {authActions, autoLogout, clearUserInfoFromLocalStorage} from "./store/authSlice";
+import {authActions, autoLogout, clearUserInfoFromLocalStorage, logoutThunk} from "./store/authSlice";
 import styles from "./App.module.css";
 import "./pages/CreateListPage/CreateListPage";
 import CreateListPage from "./pages/CreateListPage/CreateListPage";
@@ -16,6 +16,7 @@ import {calculateRemainTime} from "./util/datetime";
 import {timeActions} from "./components/TimeComponent/timeSlice";
 import MainPage from "./features/notes/MainPage";
 import CreateNotePage from "./features/notes/CreateNotePage";
+import SideBar from "./components/SideBar";
 
 // Do not import. Just get from Layout
 const {Content} = Layout;
@@ -51,6 +52,7 @@ const showNotification = (type, message, description) => {
 
 };
 
+
 function App() {
     // Dispatch
     const dispatch = useDispatch();
@@ -59,7 +61,8 @@ function App() {
     const auth = useSelector((state) => state.auth);
     const notificationSlice = useSelector((state) => state.notification);
 
-    // TimeComponent
+    // States
+    const [sidebar, setSidebar] = useState(false);
 
     // Check if logged after F5 (one time)
     useEffect(() => {
@@ -107,9 +110,61 @@ function App() {
 
     }, [notificationSlice]);
 
+    // Event Handlers
+    const onLogoutHandler = (event) => {
+        dispatch(logoutThunk());
+    }
+
+    const onMoreButtonClicked = (event) => {
+        setSidebar(state => {
+            return !state;
+        })
+    }
+
+    // Define Header Links
+    const links = [
+        {
+            to: "/notes",
+            label: "Notes",
+            type: "primary",
+            display: auth.isLoggedIn ? true : false,
+            autoHide: true,
+        },
+        {
+            to: "/showLists",
+            label: "Lists",
+            type: "primary",
+            display: auth.isLoggedIn ? true : false,
+            autoHide: true,
+        },
+        {
+            to: "/login",
+            label: "Login",
+            type: "secondary",
+            display: !auth.isLoggedIn ? true : false,
+            autoHide: true,
+        },
+        {
+            to: "/logout",
+            label: "Logout",
+            type: "secondary",
+            display: auth.isLoggedIn ? true : false,
+            onClick: onLogoutHandler,
+            autoHide: true,
+        },
+        {
+            to: "#",
+            label: "More",
+            type: "dark",
+            display: true,
+            onClick: onMoreButtonClicked,
+            autoHide: false,
+            nonDisplayForSidebar: true,
+        }];
+
     return (
         <Fragment>
-            <HeaderPage/>
+            <HeaderPage links={links}/>
             <Layout className={styles.mainLayout}>
                 <Layout>
                     <Content className={styles.mainContentLayout}>
@@ -142,6 +197,7 @@ function App() {
                     </Content>
                 </Layout>
             </Layout>
+            {sidebar && <SideBar links={links} setSidebar={setSidebar}/>}
         </Fragment>
     );
 }

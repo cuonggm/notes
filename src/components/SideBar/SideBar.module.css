@@ -1,0 +1,40 @@
+.sidebar {
+    padding-top: 1rem;
+    background-color: var(--light-color);
+    position: absolute;
+    left: 0;
+    top: 4.05rem;
+    width: 100%;
+    bottom: 0;
+}
+
+.list {
+    list-style: none;
+    margin: 0 2.2rem;
+    padding: 0;
+}
+
+.item {
+    /*border: solid var(--dark-color) 1px;*/
+    margin: 0.5rem 0;
+    height: 3rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+    color: var(--light-color);
+}
+
+.primary {
+    background-color: var(--main-color);
+}
+
+.secondary {
+    background-color: var(--accent-color);
+}
+
+.dark {
+    background-color: var(--dark-color);
+}
