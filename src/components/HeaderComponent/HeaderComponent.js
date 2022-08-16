@@ -23,8 +23,6 @@ const HeaderComponent = (props) => {
                 <TimeComponent/>
                 {
                     links.map(link => {
-                        console.log("link.autoHide !== undefined: " + (link.autoHide !== undefined).toString());
-                        console.log("link.autoHide: " + link.autoHide);
                         if (link.display) {
                             return <LinkComponent
                                 key={links.indexOf(link)}

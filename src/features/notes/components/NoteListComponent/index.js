@@ -2,7 +2,7 @@ import {Fragment} from "react";
 
 const NoteListComponent = (props) => {
     return <Fragment>
-        <h1>NoteListComponent</h1>
+        <h1>Note List</h1>
     </Fragment>
 };
 

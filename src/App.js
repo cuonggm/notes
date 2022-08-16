@@ -23,6 +23,7 @@ const {Content} = Layout;
 // For Notification
 const showNotification = (type, message, description) => {
 
+    // Notification Prepare
     let targetNotification = undefined;
 
     switch (type) {

@@ -1,5 +1,5 @@
-import {Fragment, useState} from "react";
-import {Button, DatePicker, Form, Input, Radio, Switch, Tag, TimePicker} from "antd";
+import {Fragment, useEffect, useState} from "react";
+import {Button, DatePicker, Form, Input, Radio, Space, Switch, Tag, TimePicker} from "antd";
 import {breakTags} from "../../util/util";
 import {
     getDateFromMoment, getTimeFromMoment,
@@ -7,12 +7,16 @@ import {
 import moment from "moment";
 
 const CreateNoteComponent = (props) => {
+
     const [title, setTitle] = useState("");
     const [note, setNote] = useState("");
     const [date, setDate] = useState(null);
     const [time, setTime] = useState(null);
     const [tags, setTags] = useState([]);
-    const [priority, setPriority] = useState("medium")
+    const [location, setLocation] = useState("");
+    const [flag, setFlag] = useState(false);
+    const [priority, setPriority] = useState("medium");
+    const [url, setUrl] = useState("");
 
     // Datepicker
     const onDateChange = (date, dateString) => {
@@ -42,31 +46,35 @@ const CreateNoteComponent = (props) => {
     }
 
     const onSubmit = (event) => {
-        console.log(date);
-        console.log(time);
+        // console.log(title);
+        // console.log(note);
+        // console.log(date);
+        // console.log(time);
+        // console.log(tags);
+        // console.log(location);
+        // console.log(flag);
+        // console.log(priority);
+        // console.log(url);
+        const noteObject = {
+            title, note, date, time, tags, location, flag, priority, url,
+        }
+        console.log(noteObject);
     }
 
-    const priorityOptions = [
-        {
-            label: "Low",
-            value: "low"
-        },
-        {
-            label: "Medium",
-            value: "medium"
-        },
-        {
-            label: "High",
-            value: "high"
-        },
-    ];
+    const priorityOptions = [{
+        label: "Low", value: "low"
+    }, {
+        label: "Medium", value: "medium"
+    }, {
+        label: "High", value: "high"
+    },];
 
     const onPriorityChange = ({target: {value}}) => {
         setPriority(value);
     };
 
     return <Fragment>
-        <h1>CreateNoteComponent</h1>
+        <h1>Create Note</h1>
         <Form size="large" labelCol={{span: 2}} wrapperCol={{span: 20}}>
 
             <Form.Item name="title" label="Title">
@@ -90,9 +98,11 @@ const CreateNoteComponent = (props) => {
             </Form.Item>
 
             <Form.Item label="Displayed Tags">
-                {tags.map((item) => {
-                    return <Tag color="blue" key={tags.indexOf(item)}>{item}</Tag>
-                })}
+                <Space direction="horizontal" wrap={true} size="small">
+                    {tags.map((item) => {
+                        return <Tag color="blue" key={tags.indexOf(item)}>{item}</Tag>
+                    })}
+                </Space>
             </Form.Item>
 
             <Form.Item name="location" label="Location">
@@ -112,7 +122,7 @@ const CreateNoteComponent = (props) => {
                 <Input/>
             </Form.Item>
 
-            <Form.Item wrapperCol={{offset: 2, span: 22}}>
+            <Form.Item>
                 <Button type="primary" onClick={onSubmit}>Create</Button>
             </Form.Item>
 
