@@ -59,3 +59,13 @@
     color: var(--light-color);
     border: none;
 }
+
+.autoHide {
+    display: flex;
+}
+
+@media(max-width: 575px) {
+    .autoHide {
+        display: none;
+    }
+}

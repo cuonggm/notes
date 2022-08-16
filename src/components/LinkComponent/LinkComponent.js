@@ -22,7 +22,7 @@ const LinkComponent = (props) => {
 
     return <Link
         to={to}
-        className={type}
+        className={`${type} ${props.autoHide && styles.autoHide}`}
         onClick={onClick}
     >
         {label}

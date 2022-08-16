@@ -47,7 +47,7 @@ const CreateList = (props) => {
                             <Input onChange={onNameChange}/>
                         </Form.Item>
 
-                        <Form.Item wrapperCol={{offset: 4, span: 20}}>
+                        <Form.Item>
                             <Button type="primary" onClick={onSubmit}>
                                 Create
                             </Button>

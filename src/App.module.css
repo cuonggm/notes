@@ -9,15 +9,15 @@
 .mainContentLayout {
   background-color: var(--light-color);
   margin: 0;
-  padding-left: 5rem;
-  padding-right: 5rem;
+  padding-left: 2.2rem;
+  padding-right: 2.2rem;
   padding-top: 5rem;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 }
 
 @media (max-width: 575px) {
   .mainContentLayout {
-    padding-left: 0.2rem;
-    padding-right: 0.2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }

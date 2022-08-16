@@ -19,20 +19,23 @@ const HeaderPage = (props) => {
             to: "/showLists",
             label: "Lists",
             type: "primary",
-            display: auth.isLoggedIn ? true : false
+            display: auth.isLoggedIn ? true : false,
+            autoHide: true,
         },
         {
             to: "/login",
             label: "Login",
             type: "secondary",
-            display: !auth.isLoggedIn ? true : false
+            display: !auth.isLoggedIn ? true : false,
+            autoHide: false,
         },
         {
             to: "/logout",
             label: "Logout",
             type: "secondary",
             display: auth.isLoggedIn ? true : false,
-            onClick: onLogoutHandler
+            onClick: onLogoutHandler,
+            autoHide: false,
         }];
     return <HeaderComponent links={links}/>
 }
