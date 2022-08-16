@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const currentDateTime = () => {
     const now = new Date();
     return (
@@ -26,11 +28,21 @@ export const dateToString = (timestamp) => {
 }
 
 export const getDateFromMoment = (moment) => {
-    const date = moment.toDate();
-    console.log(typeof(date))
-    console.log(date);
+    return moment.toDate();
 }
 
 export const getTimeFromMoment = (moment) => {
     return moment.toDate();
+}
+
+export const toDate = (date, time) => {
+    return new Date(date.getFullYear(), date.getMonth(), date.getDay(), time.getHours(), time.getMinutes(), time.getSeconds());
+}
+
+export const diffMins = (remainSec) => {
+    const now = new Date();
+    const millisecs = now.getTime() + remainSec * 1000;
+    const futureDate = new Date(millisecs);
+    const mins = moment.duration(moment(futureDate).diff(moment(now))).asMinutes();
+    return mins
 }

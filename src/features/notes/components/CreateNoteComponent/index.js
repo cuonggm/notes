@@ -1,22 +1,47 @@
 import {Fragment, useEffect, useState} from "react";
 import {Button, DatePicker, Form, Input, Radio, Space, Switch, Tag, TimePicker} from "antd";
 import {breakTags} from "../../util/util";
-import {
-    getDateFromMoment, getTimeFromMoment,
-} from "../../../../util/datetime";
 import moment from "moment";
 
 const CreateNoteComponent = (props) => {
 
     const [title, setTitle] = useState("");
     const [note, setNote] = useState("");
-    const [date, setDate] = useState(null);
-    const [time, setTime] = useState(null);
+    const now = new Date();
+    const [date, setDate] = useState(now);
+    const [time, setTime] = useState(now);
     const [tags, setTags] = useState([]);
     const [location, setLocation] = useState("");
     const [flag, setFlag] = useState(false);
     const [priority, setPriority] = useState("medium");
     const [url, setUrl] = useState("");
+
+    // Initial Input Values
+
+    const priorityOptions = [{
+        label: "Low", value: "low"
+    }, {
+        label: "Medium", value: "medium"
+    }, {
+        label: "High", value: "high"
+    },];
+
+    const onPriorityChange = ({target: {value}}) => {
+        setPriority(value);
+    };
+
+    // Event Handlers
+    const onTitleChange = (event => {
+        setTitle(state => {
+            return event.target.value;
+        });
+    });
+
+    const onNoteChange = (event => {
+        setNote(state => {
+            return event.target.value;
+        });
+    });
 
     // Datepicker
     const onDateChange = (date, dateString) => {
@@ -38,6 +63,7 @@ const CreateNoteComponent = (props) => {
         })
     }
 
+    // Tags
     const onTagsChange = (event) => {
         let tagList = breakTags(event.target.value);
         setTags(state => {
@@ -45,47 +71,47 @@ const CreateNoteComponent = (props) => {
         });
     }
 
+    const onLocationChange = (event => {
+        setLocation(state => {
+            return event.target.value;
+        });
+    });
+
+    const onFlagChange = ((checked, event) => {
+        setFlag(state => {
+            return checked;
+        });
+    });
+
+
+    const onUrlChange = (event) => {
+        setUrl(state => {
+            return event.target.value;
+        })
+    };
+
     const onSubmit = (event) => {
-        // console.log(title);
-        // console.log(note);
-        // console.log(date);
-        // console.log(time);
-        // console.log(tags);
-        // console.log(location);
-        // console.log(flag);
-        // console.log(priority);
-        // console.log(url);
         const noteObject = {
             title, note, date, time, tags, location, flag, priority, url,
         }
-        console.log(noteObject);
+        props.onSubmit(noteObject);
     }
 
-    const priorityOptions = [{
-        label: "Low", value: "low"
-    }, {
-        label: "Medium", value: "medium"
-    }, {
-        label: "High", value: "high"
-    },];
-
-    const onPriorityChange = ({target: {value}}) => {
-        setPriority(value);
-    };
 
     return <Fragment>
         <h1>Create Note</h1>
+
         <Form size="large" labelCol={{span: 2}} wrapperCol={{span: 20}}>
 
             <Form.Item name="title" label="Title">
-                <Input/>
+                <Input onChange={onTitleChange}/>
             </Form.Item>
 
             <Form.Item name="note" label="Note">
-                <Input/>
+                <Input onChange={onNoteChange}/>
             </Form.Item>
 
-            <Form.Item name="date" label="Date" initialValue={moment(new Date())}>
+            <Form.Item name="date" label="Date" initialValue={moment(now)}>
                 <DatePicker format={"DD/MM/YYYY"} onChange={onDateChange}/>
             </Form.Item>
 
@@ -106,26 +132,26 @@ const CreateNoteComponent = (props) => {
             </Form.Item>
 
             <Form.Item name="location" label="Location">
-                <Input/>
+                <Input onChange={onLocationChange}/>
             </Form.Item>
 
             <Form.Item label="Flag">
-                <Switch/>
+                <Switch onChange={onFlagChange}/>
             </Form.Item>
 
             <Form.Item label="Priority">
-                <Radio.Group options={priorityOptions} onChange={onPriorityChange} value={priority} optionType="button"
+                <Radio.Group options={priorityOptions} onChange={onPriorityChange} value={priority}
+                             optionType="button"
                              buttonStyle="solid"/>
             </Form.Item>
 
             <Form.Item name="url" label="URL">
-                <Input/>
+                <Input onChange={onUrlChange}/>
             </Form.Item>
 
             <Form.Item>
                 <Button type="primary" onClick={onSubmit}>Create</Button>
             </Form.Item>
-
         </Form>
     </Fragment>
 };

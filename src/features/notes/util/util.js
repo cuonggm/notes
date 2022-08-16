@@ -4,7 +4,7 @@ export const breakTags = (string) => {
         tagsString = tagsString.replace("  ", " ");
     }
     let tagList = tagsString.split(" ").filter(function(item,i,allItems){
-        return i==allItems.indexOf(item);
+        return i===allItems.indexOf(item);
     }).join(" ");
 
     return tagList.split(" ");
